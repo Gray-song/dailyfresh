@@ -1,0 +1,53 @@
+{% extends 'base_user_center.html' %}
+{% load staticfiles %}
+{% block topfiles %}
+    <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+	<script type="text/javascript" src = "{% static 'js/msgbox.js' %}"></script>
+{% endblock topfiles %}
+{% block right_menu_con %}
+    <div class="right_menu_con clearfix">
+
+        <h3 class="common_title2">编辑地址</h3>
+        <div class="site_con">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form_group">
+                    <label>收件人：</label>
+                    <input type="text" name="receiver" value="{{ receiver }}">
+                </div>
+                <div class="form_group form_group2">
+                    <label>详细地址：</label>
+                    <textarea class="site_area" name="addr" >{{ address }}</textarea>
+                </div>
+                <div class="form_group">
+                    <label>邮编：</label>
+                    <input type="text" name="zip_core" value="{{ zip_core }}">
+                </div>
+                <div class="form_group">
+                    <label>手机：</label>
+                    <input type="text" name="phone" value="{{ phone }}">
+                </div>
+                <div class="default_addr clearfix">
+                    <input type="checkbox" name="default_addr" {{ default_addr }}>
+                    <label>设为默认地址：</label>
+
+                </div>
+                <input type="submit" name="" value="提交" class="info_submit">
+            </form>
+        </div>
+    </div>
+
+
+{% endblock right_menu_con %}
+{% block bottom %}
+<div class="pop_con">
+    {% if errmsg == '数据不完整' or errmsg == '手机格式不正确' %}
+        <div class="pop">
+            <h2>错误消息</h2>
+            <p class="errmsg">{{ errmsg }}</p>
+        </div>
+        <div class="mask"></div>
+    {% endif %}
+</div>
+{% endblock bottom %}
+

@@ -1,0 +1,39 @@
+{% extends 'base_user_center.html' %}
+{% block right_menu_con %}
+    <div class="right_menu_con clearfix">
+			<h3 class="common_title2">收货地址</h3>
+			<div class="site_con">
+				<dl>
+					<div class="clearfix">
+						<dt class="addr_tiltle">我的收货地址：</dt>
+						<a class="add_addr" href="{% url 'user:addaddress' %}">添加新地址</a>
+
+					</div>
+                    {% if addr_num == 0 %}
+                        <dd class="clearfix ">
+						<div class="default clearfix">
+							<span>您尚未添加地址，请先添加收货地址</span>
+						</div>
+					</dd>
+                    {% else %}
+                        {% for address in addr %}
+                            <dd class="clearfix ">
+                                <div class="default clearfix">
+                                    {% if address.is_default%}<em>默认</em>{% endif %}
+                                    <span>{{ address.addr }} （{{ address.receiver }} 收） {{ address.phone }}</span>
+                                    <a href="{% url 'user:address' %}?addr_id={{ address.id }}">删除</a>
+                                    <a href="{% url 'user:addaddress' %}?addr_id={{ address.id }}">编辑</a>
+
+                                </div>
+                            </dd>
+                        {% endfor %}
+                    {% endif %}
+
+				</dl>
+			</div>
+
+
+		</div>
+
+{% endblock right_menu_con %}
+
